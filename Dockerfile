@@ -4,7 +4,7 @@ ADD main.go go.mod go.sum /go/src/app/
 WORKDIR /go/src/app
 RUN go mod download && GOOS=linux go build -o hello .
 
-FROM scratch
+FROM alpine:3.14
 WORKDIR /opt
 COPY --from=build-env /go/src/app/hello .
 ENTRYPOINT [ "/opt/hello" ]
