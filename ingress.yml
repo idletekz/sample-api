@@ -8,9 +8,9 @@ spec:
   - http:
       paths:
       - path: /api
-        pathType: Prefix
         backend:
           service:
             name: frondend-svc
             port:
               number: 3000
+        
