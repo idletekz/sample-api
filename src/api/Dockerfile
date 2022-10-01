@@ -13,5 +13,4 @@ RUN go mod download && GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o note
 FROM scratch
 WORKDIR /app
 COPY --from=builder /go/src/app/note .
-RUN ls -la /app
 CMD [ "/app/note" ]
