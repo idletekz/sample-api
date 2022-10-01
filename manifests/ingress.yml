@@ -6,15 +6,18 @@ spec:
   ingressClassName: nginx
   rules:
   - http:
-    paths:
-    - path: /api
-      pathType: Exact
-      backend:
-        service:
-          name: frondend-svc
-          port:
-            number: 3000
-    - path: /
-      backend:
-        serviceName: static-svc
-        servicePort: 80
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: frondend-svc
+            port:
+              number: 3000
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: static-svc
+            port:
+              number: 80

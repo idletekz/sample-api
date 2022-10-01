@@ -10,7 +10,7 @@ WORKDIR /go/src/app
 # compile only for linux target and disabling cross compilation
 RUN go mod download && GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o note .
 
-FROM scratch
+FROM alpine:3.14
 WORKDIR /app
 COPY --from=builder /go/src/app/note .
 CMD [ "/app/note" ]
