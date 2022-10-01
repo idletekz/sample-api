@@ -1,11 +1,17 @@
-FROM golang:alpine AS build-env
+FROM golang:alpine AS builder
+# Install git.
+# Git is required for fetching the dependencies.
+RUN apk update && apk add --no-cache git
 RUN mkdir /go/src/app && apk update && apk add git
 ADD main.go go.mod go.sum /go/src/app/
 WORKDIR /go/src/app
-RUN go mod download && GOOS=linux go build -o note .
+# download dependencies
+# removing debug informations  
+# compile only for linux target and disabling cross compilation
+RUN go mod download && GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o note .
 
 FROM scratch
 WORKDIR /app
-COPY --from=build-env /go/src/app/note .
+COPY --from=builder /go/src/app/note .
 RUN ls -la /app
 CMD [ "/app/note" ]
