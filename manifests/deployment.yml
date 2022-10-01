@@ -5,7 +5,7 @@ metadata:
     app: frontend
   name: frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
@@ -19,3 +19,17 @@ spec:
         name: frontend
         resources: {}
         imagePullPolicy: Always
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis-password
+              key: redis-password        
+        volumeMounts:
+        - name: config-volume
+          mountPath: /opt/config.json
+          subPath: config.json
+      volumes:
+      - name: config-volume
+        configMap:
+          name: redis-config

@@ -28,6 +28,6 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /bitnami/redis/data
-  volumes:
-  - name: data
-    emptyDir: {}
+      volumes:
+      - name: data
+        emptyDir: {}
