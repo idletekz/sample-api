@@ -17,7 +17,6 @@ spec:
       containers:
       - image: idletekz/sample-api:latest
         name: frontend
-        resources: {}
         imagePullPolicy: Always
         env:
         - name: REDIS_PASSWORD
@@ -33,3 +32,24 @@ spec:
       - name: config-volume
         configMap:
           name: redis-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend-ui
+  name: frontend-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-ui
+  template:
+    metadata:
+      labels:
+        app: frontend-ui
+    spec:
+      containers:
+      - image: idletekz/frontend-ui:latest
+        name: frontend-ui
+        imagePullPolicy: Always        
