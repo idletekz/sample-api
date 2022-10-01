@@ -7,4 +7,5 @@ RUN go mod download && GOOS=linux go build -o note .
 FROM scratch
 WORKDIR /app
 COPY --from=build-env /go/src/app/note .
+RUN ls -la /app
 CMD [ "/app/note" ]

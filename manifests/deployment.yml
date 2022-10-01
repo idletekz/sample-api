@@ -27,7 +27,7 @@ spec:
               key: redis-password        
         volumeMounts:
         - name: config-volume
-          mountPath: /opt/config.json
+          mountPath: /app/config.json
           subPath: config.json
       volumes:
       - name: config-volume
